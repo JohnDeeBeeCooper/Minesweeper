@@ -3,20 +3,30 @@ import styled from 'styled-components';
 import Field from './Field';
 import lvlGenerator from '../functions/lvlGenerator';
 import Header from './Header';
+import inRow from '../functions/inRow';
+import update from 'immutability-helper';
 
 export default class App extends Component {
   state = {
-    fields: [],
-    difficult: ''
+    field: [],
+    difficult: '',
+    count: 0
   }
   handleClick = (e) => {
-    this.setState({ difficult: e.target.value, fields: lvlGenerator(e.target.value)});
+    const { field, count } = lvlGenerator(e.target.value);
+    this.setState({ difficult: e.target.value, field: field, count: count });
+    console.log(inRow(field, count));
+  }
+  handleChange = (id) => (e) => {
+    const collection = this.state.field;
+    const newCollection = update(collection, { [id]: { isClosed: { $set: !collection[id].isClosed } } });
+    this.setState({ field: newCollection });
   }
   render() {
     return (
       <Wrapper>
         <Header func={this.handleClick} />
-        <Field array={this.state.fields} />
+        {this.state.field.length === 0 ? null : <Field array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
       </Wrapper>
     );
   }

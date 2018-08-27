@@ -5,12 +5,15 @@ import Cell from './Cell';
 const Field = (props) => {
     return (
         <Container>
-            {props.array.map(item => <Cell param={item} />)}
+            <tbody>
+                {props.array.map(item => <Row>{item.map(a => <Cell func={props.handleChange} key={a.id} param={a} />)}</Row>)}
+            </tbody>
         </Container>
     )
 }
-const Container = styled.div`
-    display: block;
+const Container = styled.table`
+`;
+const Row = styled.tr`
 `;
 
 export default Field;

@@ -1,7 +1,8 @@
 export default (difficult, manual) => {
     let arr = [];
+    let id = 0;
+    let count = 0;
     if (!manual) {
-        let count = 0;
         switch (difficult) {
             case 'very easy':
                 count = 5;
@@ -22,19 +23,18 @@ export default (difficult, manual) => {
                 console.log('aaeaeaeaeaeae');
         }
         arr = [count, count];
-        console.log(arr);
     }
     else {
         arr = [manual.w, manual.h];
+        count = manual.w;
     }
     const newWidth = [...Array(arr[0]).keys()];
-    const newHeight = [...Array(arr[0]).keys()];
+    const newHeight = [...Array(arr[1]).keys()];
     const newArr = newHeight.reduce((acc, a) => {
         const newRange = newWidth.map(item => {
-            return { h: a, w: item, isBoom: false }
+            return { id: id++, h: a, w: item, isBoom: false, isClosed: true }
         });
-        return [...acc, newRange];
+        return [...acc, ...newRange];
     }, []);
-    console.log(newArr);
-    return newArr;
+    return { field: newArr, count: count };
 }
