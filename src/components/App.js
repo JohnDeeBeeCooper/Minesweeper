@@ -19,7 +19,7 @@ export default class App extends Component {
   }
   handleChange = (id) => (e) => {
     const collection = this.state.field;
-    const newCollection = update(collection, { [id]: { isClosed: { $set: !collection[id].isClosed } } });
+    const newCollection = update(collection, { [id]: { isClosed: { $set: false } } });
     this.setState({ field: newCollection });
   }
   render() {

@@ -9,7 +9,7 @@ const Header = (props) => {
             <Button value='easy' onClick={def}>easy</Button>
             <Button value='normal' onClick={def}>normal</Button>
             <Button value='hard' onClick={def}>hard</Button>
-            <Button value='i just wanna die' onClick={def}>ijwd</Button>
+            <Button value='impossible' onClick={def}>impossible</Button>
         </Container>
     )
 }
@@ -21,5 +21,4 @@ const Button = styled.button`
 `;
 const Container = styled.div`
     margin: 0 auto;
-    display: block;
 `;

@@ -5,7 +5,7 @@ const Cell = (props) => {
     const { param } = props;
     return (
         <Test isClosed={param.isClosed} onClick={props.func(props.param.id)}>
-            {param.isClosed ? null : 1}
+            {param.isClosed || param.num === 0 ? null : param.num}
         </Test>
     )
 }
@@ -29,6 +29,7 @@ const Test = styled.td`
     border-right: solid 2px #7b7b7b;
     border-top: solid 2px #fff;
     border-left: solid 2px #fff;
+    background-position: 0 -39px;
     ${props => !props.isClosed && css`
         border-left: solid 1px #7b7b7b;
         border-top: solid 1px #7b7b7b;
@@ -36,5 +37,8 @@ const Test = styled.td`
         border-right: none;
         text-align: center;
   `}
+    :active{
+        border: none;
+    }
 `;
 export default Cell;
