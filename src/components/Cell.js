@@ -4,12 +4,12 @@ import styled, { css } from 'styled-components';
 const Cell = (props) => {
     const { param } = props;
     return (
-        <Test isClosed={param.isClosed} onClick={props.func(props.param.id)}>
+        <Sq red = {param.red} isClosed={param.isClosed} onClick={props.func(props.param.id)}>
             {param.isClosed || param.num === 0 ? null : param.num}
-        </Test>
+        </Sq>
     )
 }
-const Test = styled.td`
+const Sq = styled.td`
     width: 20px;
     height: 20px;
     margin: 0;
@@ -29,13 +29,15 @@ const Test = styled.td`
     border-right: solid 2px #7b7b7b;
     border-top: solid 2px #fff;
     border-left: solid 2px #fff;
-    background-position: 0 -39px;
     ${props => !props.isClosed && css`
         border-left: solid 1px #7b7b7b;
         border-top: solid 1px #7b7b7b;
         border-bottom: none;
         border-right: none;
         text-align: center;
+  `}
+    ${props => props.red && css`
+    background: red;
   `}
     :active{
         border: none;

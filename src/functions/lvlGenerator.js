@@ -1,4 +1,5 @@
 import algmnt from './algmnt';
+import bombsCount from './bombsCount';
 
 export default (difficult, manual) => {
     let arr = [];
@@ -44,6 +45,8 @@ export default (difficult, manual) => {
         });
         return [...acc, ...newRange];
     }, []);
-    const newArr = algmnt(preNewArr, mines);
+    const preArr = algmnt(preNewArr, mines);
+    const newArr = bombsCount(preArr);
+    console.log(newArr);
     return { field: newArr, count: count };
 }
