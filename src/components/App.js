@@ -36,18 +36,12 @@ export default class App extends Component {
     return (
       <Wrapper>
         <Header func={this.handleClick} />
-        {this.state.field.length === 0 ? null : <Field array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
+        {this.state.field.length === 0 ? null : <Field theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
       </Wrapper>
     );
   }
 }
 const Wrapper = styled.div`
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
   margin: 0 auto;
-  display: flex;
-`;
+`; // little dwarf

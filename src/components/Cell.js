@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const Cell = (props) => {
     const { param } = props;
     return (
-        <Sq red = {param.red} isClosed={param.isClosed} onClick={props.func(props.param.id)}>
+        <Sq red={param.red} num={param.num} isClosed={param.isClosed} onClick={props.func(props.param.id)}>
             {param.isClosed || param.num === 0 ? null : param.num}
         </Sq>
     )
@@ -39,6 +39,29 @@ const Sq = styled.td`
     ${props => props.red && css`
     background: red;
   `}
+  ${props => {
+        switch (props.num) {
+            case 1:
+                return css`color: blue`;
+            case 2:
+                return css`color: green`;
+            case 3:
+                return css`color: red`;
+            case 4:
+                return css`color: purple`;
+            case 5:
+                return css`color: maroon`;
+            case 6:
+                return css`color: turquoise`;
+            case 7:
+                return css`color: black`;
+            case 8:
+                return css`color: gray`;
+            default:
+                break;
+        }
+    }
+}
     :active{
         border: none;
     }

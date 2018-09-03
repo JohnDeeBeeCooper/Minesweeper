@@ -1,21 +1,30 @@
 import update from 'immutability-helper';
 
-const openWounds = (id, arr, noId) => { //ref
+const ids = (id, arr, filtId) => {
     const item = arr[id];
-    let newArr = [];
+    let res = [];
     if (item.num === 0) {
-        newArr = arr.reduce((acc, a) => {
-            if (Math.abs(item.h - a.h) <= 1 && Math.abs(item.w - a.w) <= 1) {
-                a.isClosed = false;
+        res = arr.reduce((acc, a) => {
+            if (Math.abs(a.h - item.h) <= 1 && Math.abs(a.w - item.w) <= 1 && !filtId.includes(a.id)) {
+                filtId.push(a.id);
+                return [...acc, ...ids(a.id, arr, filtId)];
             }
-            return [...acc, a];
+            return acc;
         }, []);
-        console.log(newArr);
+        const result = new Set([...res, ...filtId]);
+        console.log(result);
+        return result;
     }
     else {
-        newArr = update(arr, { [id]: { isClosed: { $set: false } } });
+        res.push(item.id);
+        return res;
     }
-    return newArr;
 }
-
+const openWounds = (id, arr) => { //ref
+    const items = ids(id, arr, []);
+    items.forEach((item, i, newArr) => {
+        arr[item].isClosed = false;
+    });
+    return arr;
+}
 export default openWounds;

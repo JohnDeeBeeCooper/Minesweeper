@@ -20,5 +20,4 @@ const Button = styled.button`
     margin: 5px 10px;
 `;
 const Container = styled.div`
-    margin: 0 auto;
 `;

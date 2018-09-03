@@ -1,11 +1,11 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Cell from './Cell';
 
 const Field = (props) => {
     return (
         <Container>
-            <Table>
+            <Table gameOver={props.theEnd}>
                 <Tbody>
                     {props.array.map(item => <Row>{item.map(a => <Cell func={props.handleChange} key={a.id} param={a} />)}</Row>)}
                 </Tbody>
@@ -14,13 +14,16 @@ const Field = (props) => {
     )
 }
 const Container = styled.div`
-    margin: 0 auto;
 `;
 const Table = styled.table`
+    ${props => props.gameOver && css`
+    pointer-events: none;
+    cursor: default;`}
 `;
 const Row = styled.tr`
-`;
+    `;
 const Tbody = styled.tbody`
+    display: table-row-group;
+    vertical-align: middle;
 `;
-
 export default Field;
