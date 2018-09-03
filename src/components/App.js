@@ -4,7 +4,6 @@ import Field from './Field';
 import lvlGenerator from '../functions/lvlGenerator';
 import Header from './Header';
 import inRow from '../functions/inRow';
-import update from 'immutability-helper';
 import openWounds from '../functions/openWounds';
 import gameOver from '../functions/gameOver';
 

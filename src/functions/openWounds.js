@@ -1,5 +1,3 @@
-import update from 'immutability-helper';
-
 const ids = (id, arr, filtId) => {
     const item = arr[id];
     let res = [];
@@ -12,7 +10,6 @@ const ids = (id, arr, filtId) => {
             return acc;
         }, []);
         const result = new Set([...res, ...filtId]);
-        console.log(result);
         return result;
     }
     else {

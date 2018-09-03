@@ -1,7 +1,7 @@
 {
   "name": "minesweeper",
   "version": "0.1.0",
-  "private": true,
+ "homepage": "https://JohnDeeBeeCooper.github.io/Minesweeper/", "private": true,
   "dependencies": {
     "immutability-helper": "^2.7.1",
     "react": "^16.4.1",
