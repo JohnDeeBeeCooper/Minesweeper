@@ -6,6 +6,5 @@ export default (arr, id) => {
         return a;
     });
     newArr[id].red = true;
-    console.log(newArr);
     return newArr;
 }

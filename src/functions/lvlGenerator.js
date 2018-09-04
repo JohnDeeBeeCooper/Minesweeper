@@ -9,12 +9,12 @@ export default (difficult, manual) => {
     if (!manual) {
         switch (difficult) {
             case 'very easy':
-                count = 5;
-                mines = 5;
+                count = 7;
+                mines = 6;
                 break;
             case 'easy':
-                count = 10;
-                mines = 10;
+                count = 12;
+                mines = 15;
                 break;
             case 'normal':
                 count = 15;
@@ -22,14 +22,15 @@ export default (difficult, manual) => {
                 break;
             case 'hard':
                 count = 20;
-                mines = 60;
+                mines = 50;
                 break;
             case 'impossible':
-                count = 50;
-                mines = 99;
+                count = 20;
+                mines = 70;
                 break;
             default:
                 console.log('aaeaeaeaeaeae');
+                break;
         }
         arr = [count, count];
     }
@@ -41,12 +42,13 @@ export default (difficult, manual) => {
     const newHeight = [...Array(arr[1]).keys()];
     const preNewArr = newHeight.reduce((acc, a) => {
         const newRange = newWidth.map(item => {
-            return { id: id++, h: a, w: item, isBoom: false, isClosed: true, num: 0 }
+            return { id: id++, h: a, w: item, isBoom: false, isClosed: true, num: 0, note: '' }
         });
         return [...acc, ...newRange];
     }, []);
     const preArr = algmnt(preNewArr, mines);
     const newArr = bombsCount(preArr);
-    console.log(newArr);
+    const filtArr = newArr.filter(a => a.isBoom === true);
+    console.log(filtArr.length);
     return { field: newArr, count: count };
 }

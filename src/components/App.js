@@ -6,6 +6,8 @@ import Header from './Header';
 import inRow from '../functions/inRow';
 import openWounds from '../functions/openWounds';
 import gameOver from '../functions/gameOver';
+import update from 'immutability-helper';
+import nextNote from '../functions/nextNote';
 
 export default class App extends Component {
   state = {
@@ -21,21 +23,35 @@ export default class App extends Component {
   handleChange = (id) => (e) => {
     if (!this.state.end) {
       const collection = this.state.field;
-      if (collection[id].isBoom) {
-        this.setState({ end: true, field: gameOver(collection, id) })
+      if (collection[id].note !== '') {
+        this.flagOn(id)(e);
       }
       else {
-        const newCollection = openWounds(id, collection, []);
-        //const newCollection = update(collection, { [id]: { isClosed: { $set: false } } });
-        this.setState({ field: newCollection });
+        if (collection[id].isBoom) {
+          this.setState({ end: true, field: gameOver(collection, id) })
+        }
+        else {
+          const newCollection = openWounds(id, collection);
+          this.setState({ field: newCollection });
+        }
       }
+    }
+  }
+  flagOn = (id) => (e) => {
+    e.preventDefault();
+    const collection = this.state.field;
+    const item = collection[id];
+    if (item.isClosed) {
+      const newCollection = update(collection, { [id]: { note: { $set: nextNote(item.note) } } });
+      console.log(newCollection);
+      this.setState({ field: newCollection });
     }
   }
   render() {
     return (
       <Wrapper>
         <Header func={this.handleClick} />
-        {this.state.field.length === 0 ? null : <Field theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
+        {this.state.field.length === 0 ? null : <Field flagOn={this.flagOn} theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
       </Wrapper>
     );
   }

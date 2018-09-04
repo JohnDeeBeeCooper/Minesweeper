@@ -1,4 +1,4 @@
-const ids = (id, arr, filtId) => {
+const ids = (id, arr, filtId) => { //i won't fix this func
     const item = arr[id];
     let res = [];
     if (item.num === 0) {
@@ -20,7 +20,7 @@ const ids = (id, arr, filtId) => {
 const openWounds = (id, arr) => { //ref
     const items = ids(id, arr, []);
     items.forEach((item, i, newArr) => {
-        arr[item].isClosed = false;
+        arr[item].isClosed = arr[item].note === '' ? false : true;
     });
     return arr;
 }
