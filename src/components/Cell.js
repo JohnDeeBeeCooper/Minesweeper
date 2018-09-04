@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 const Cell = (props) => {
     const { param } = props;
     let note;
+    const num = param.num === '*' ?
+        <Img src='https://www.freeiconspng.com/uploads/bomb-icon-2.png' /> :param.num;
     if (param.note === 'idk') {
         note = '?'
     }
@@ -15,7 +17,7 @@ const Cell = (props) => {
     }
     return (
         <Sq flag={param.isFlag} red={param.red} num={param.num} isClosed={param.isClosed} onContextMenu={props.flagOn(param.id)} onClick={props.func(param.id)}>
-            {param.isClosed || param.num === 0 ? note : param.num}
+            {param.isClosed || param.num === 0 ? note : num}
         </Sq>
     )
 }
@@ -25,7 +27,7 @@ const Sq = styled.td`
     margin: 0;
     padding: 0;
     font-weight: 700;
-    font-family: 'Arial Black',Arial,sans-serif;
+    font-family: 'Arial Black', Arial, sans-serif;
     font-size: 16px;
     text-align: center;
     line-height: 16px;
