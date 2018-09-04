@@ -48,7 +48,5 @@ export default (difficult, manual) => {
     }, []);
     const preArr = algmnt(preNewArr, mines);
     const newArr = bombsCount(preArr);
-    const filtArr = newArr.filter(a => a.isBoom === true);
-    console.log(filtArr.length);
     return { field: newArr, count: count };
 }

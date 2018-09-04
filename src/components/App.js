@@ -43,7 +43,6 @@ export default class App extends Component {
     const item = collection[id];
     if (item.isClosed) {
       const newCollection = update(collection, { [id]: { note: { $set: nextNote(item.note) } } });
-      console.log(newCollection);
       this.setState({ field: newCollection });
     }
   }
