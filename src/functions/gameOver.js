@@ -4,7 +4,9 @@ export default (arr, id) => {
             a.isClosed = false;
         }
         if (id === undefined) {
-            a.note = 'flag';
+            if (a.isBoom) {
+                a.note = 'flag';
+            }
         }
         return a;
     });
