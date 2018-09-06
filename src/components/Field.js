@@ -22,11 +22,14 @@ const Container = styled.div`
     border-right: solid 2px #707070;
     border-top: solid 2px #fff;
     border-left: solid 2px #fff;
+    display: block;
 `;
 const Wrapper = styled.div`
     margin-top: 50px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
 `;
 const Table = styled.table`
     border-bottom: solid 2px #fff;

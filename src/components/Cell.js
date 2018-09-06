@@ -5,7 +5,7 @@ const Cell = (props) => {
     const { param } = props;
     let note;
     const num = param.num === '*' ?
-    <Svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" space="preserve">
+    <Svg version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" space="preserve">
         <g>
             <path fillRule="evenodd" clipRule="evenodd" fill="#322F31" d="M44.921,90.799c-4.176-0.188-8.032-1.566-11.849-3.127
                 c-0.777-0.316-0.962-0.789-1.018-1.555c-0.283-3.871-2.079-7.094-4.442-10.055c-3.615-4.531-8.108-7.568-14.006-8.176
@@ -121,13 +121,27 @@ const Cell = (props) => {
             <path fillRule="evenodd" clipRule="evenodd" fill="#1D181C" d="M48.602,60.021c0.905-0.623,1.812-0.615,2.719-0.004
             C50.414,60.256,49.508,60.256,48.602,60.021z"/>
         </g>
+        {param.note === 'flag' ? 
+        <Svg version="1.1" x="0px" y="0px" viewBox="0 0 469.785 469.785" enable-backgroun=":new 0 0 469.785 469.785" space="preserve">
+            <g transform="matrix(1.25 0 0 -1.25 0 45)">
+                <g>
+                    <g>
+                        <path fill="red" d="M228.294-151.753L367.489-12.558c11.116,11.105,11.116,29.116,0,40.22
+                c-11.105,11.116-29.104,11.116-40.22,0L188.073-111.533L48.866,27.663c-11.093,11.116-29.116,11.116-40.22,0
+               c-11.105-11.105-11.105-29.116,0-40.22l139.207-139.196L8.338-291.268c-11.116-11.116-11.116-29.116,0-40.22
+               c5.552-5.564,12.834-8.34,20.116-8.34c7.27,0,14.552,2.776,20.105,8.34l139.514,139.514l139.196-139.196
+               c5.564-5.552,12.834-8.34,20.116-8.34c7.27,0,14.552,2.788,20.105,8.34c11.116,11.105,11.116,29.104,0,40.22L228.294-151.753z"/>
+                    </g>
+                </g>
+            </g>
+        </Svg> : null}
     </Svg> 
     : param.num;
     if (param.note === 'idk') {
         note = '?'
     }
     else if (param.note === 'flag') {
-        note = <Svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" space="preserve">
+        note = <Svg version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" space="preserve">
         <g>
             <path fillRule="evenodd" clipRule="evenodd" fill="#5C5A44" d="M14.677,100.204c-1.177-1.979-2.064-3.892-2.054-6.419
                 c0.124-28.486,0.081-56.975,0.081-85.462c0-2.499-0.332-5.213,2.756-6.26c3.703-1.256,6.16,0.779,6.204,5.295
@@ -147,7 +161,7 @@ const Cell = (props) => {
         note = null;
     }
     return (
-        <Sq flag={param.isFlag} red={param.red} num={param.num} isClosed={param.isClosed} onContextMenu={props.flagOn(param.id)} onClick={props.func(param.id)}>
+        <Sq red={param.red} num={param.num} isClosed={param.isClosed} onContextMenu={props.flagOn(param.id)} onClick={props.func(param.id)}>
             {param.isClosed || param.num === 0 ? note : num}
         </Sq>
     )
@@ -212,7 +226,8 @@ const Sq = styled.td`
     }
 `;
 const Svg = styled.svg`
-    width: 14px;
-    height: 14px ;
+    width: 13px;
+    height: 13px ;
 `;
+
 export default Cell;

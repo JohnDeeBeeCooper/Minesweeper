@@ -8,13 +8,15 @@ import openWounds from '../functions/openWounds';
 import gameOver from '../functions/gameOver';
 import update from 'immutability-helper';
 import nextNote from '../functions/nextNote';
+import oppaWin from '../functions/oppaWin';
 
 export default class App extends Component {
   state = {
     field: [],
     difficult: '',
     count: 0,
-    end: false
+    end: false,
+    win: false
   }
   handleClick = (e) => {
     const { field, count } = lvlGenerator(e.target.value);
@@ -32,7 +34,7 @@ export default class App extends Component {
         }
         else {
           const newCollection = openWounds(id, collection);
-          this.setState({ field: newCollection });
+          oppaWin(newCollection) ? this.setState({ field: gameOver(newCollection), end: true, win: true }) : this.setState({field: newCollection});
         }
       }
     }
