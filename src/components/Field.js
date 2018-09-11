@@ -6,6 +6,12 @@ const Field = (props) => {
     return (
         <Wrapper>
             <Container>
+                <Header>
+                    count:{props.flags}
+                    <Img><ThugLife src="https://banner2.kisspng.com/20180402/dlw/kisspng-t-shirt-sunglasses-clip-art-thug-life-5ac1b26dbc5755.3735686315226435657715.jpg" /></Img>
+                </Header>
+            </Container>
+            <Container>
                 <Table gameOver={props.theEnd}>
                     <Tbody>
                         {props.array.map(item => <Row>{item.map(a => <Cell flagOn={props.flagOn} func={props.handleChange} key={a.id} param={a} />)}</Row>)}
@@ -15,6 +21,25 @@ const Field = (props) => {
         </Wrapper>
     )
 }
+const ThugLife = styled.img`
+    width: 20px;
+    height: 20px;
+    `;
+const Header = styled.div`
+    display: flex;
+    flex-direction: row;
+    `;
+const Img = styled.div`
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border-bottom: solid 2px #7b7b7b;
+    border-right: solid 2px #7b7b7b;
+    border-top: solid 2px #fff;
+    border-left: solid 2px #fff; 
+    content: url('https://ficardo-weddings.com/images/smiley-faces-pics/Smiley-Face-06-large.png')
+    `;
 const Container = styled.div`
     background: #bdbdbd;
     padding: 7px;

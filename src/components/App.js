@@ -15,12 +15,13 @@ export default class App extends Component {
     field: [],
     difficult: '',
     count: 0,
+    avalFlags: 0,
     end: false,
     win: false
   }
   handleClick = (e) => {
-    const { field, count } = lvlGenerator(e.target.value);
-    this.setState({ difficult: e.target.value, field: field, count: count, end: false });
+    const { field, count, avalFlags} = lvlGenerator(e.target.value);
+    this.setState({ difficult: e.target.value, field, count, end: false, avalFlags});
   }
   handleChange = (id) => (e) => {
     if (!this.state.end) {
@@ -44,15 +45,17 @@ export default class App extends Component {
     const collection = this.state.field;
     const item = collection[id];
     if (item.isClosed) {
-      const newCollection = update(collection, { [id]: { note: { $set: nextNote(item.note) } } });
-      this.setState({ field: newCollection });
+      const bool = this.state.avalFlags === 0;
+      const newCollection = update(collection, { [id]: { note: { $set: nextNote(item.note, bool) } } });
+      const newCount = newCollection.filter(item => item.isBoom).length - newCollection.filter(item => item.note === 'flag').length;
+      this.setState({ field: newCollection, avalFlags: newCount });
     }
   }
   render() {
     return (
       <Wrapper>
         <Header func={this.handleClick} />
-        {this.state.field.length === 0 ? null : <Field flagOn={this.flagOn} theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
+        {this.state.field.length === 0 ? null : <Field flags={this.state.avalFlags} flagOn={this.flagOn} theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
       </Wrapper>
     );
   }

@@ -1,11 +1,11 @@
-export default (note) => {
-    if(note === ''){
-        return 'flag';
+export default (note, frbdn) => {
+    if (note === '') {
+        return frbdn ? 'idk' : 'flag';
     }
-    else if (note === 'idk'){
+    else if (note === 'idk') {
         return ''
     }
-    else{
+    else {
         return 'idk';
     }
 }

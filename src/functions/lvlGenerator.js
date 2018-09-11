@@ -14,19 +14,19 @@ export default (difficult, manual) => {
                 break;
             case 'easy':
                 count = 12;
-                mines = 15;
+                mines = 12;
                 break;
             case 'normal':
                 count = 15;
-                mines = 32;
+                mines = 25;
                 break;
             case 'hard':
                 count = 20;
-                mines = 50;
+                mines = 35;
                 break;
             case 'impossible':
                 count = 20;
-                mines = 70;
+                mines = 60;
                 break;
             default:
                 console.log('aaeaeaeaeaeae');
@@ -47,6 +47,7 @@ export default (difficult, manual) => {
         return [...acc, ...newRange];
     }, []);
     const preArr = algmnt(preNewArr, mines);
-    const newArr = bombsCount(preArr);
-    return { field: newArr, count: count };
+    const field = bombsCount(preArr);
+    const avalFlags = field.filter(item => item.isBoom).length;
+    return { field, count, avalFlags};
 }
