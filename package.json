@@ -1,12 +1,13 @@
 {
   "name": "minesweeper",
   "version": "0.1.0",
- "homepage": "https://JohnDeeBeeCooper.github.io/Minesweeper/", "private": true,
+  "homepage": "https://JohnDeeBeeCooper.github.io/Minesweeper/",
+  "private": true,
   "dependencies": {
     "immutability-helper": "^2.7.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^2.1.1",
     "styled-components": "^3.4.5"
   },
   "scripts": {
