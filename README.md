@@ -1,2 +1,2 @@
 # Minesweeper
-![pepe](pepe.png)
+![pepealt](pepe.png)
