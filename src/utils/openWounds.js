@@ -1,4 +1,4 @@
-const ids = (id, arr, filtId) => { //i won't fix this func
+const ids = (id, arr, filtId) => {
     const item = arr[id];
     let res = [];
     if (item.num === 0) {

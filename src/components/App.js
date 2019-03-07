@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Field from './Field';
-import lvlGenerator from '../functions/lvlGenerator';
+import lvlGenerator from '../utils/lvlGenerator';
 import Header from './Header';
-import inRow from '../functions/inRow';
-import openWounds from '../functions/openWounds';
-import gameOver from '../functions/gameOver';
+import inRow from '../utils/inRow';
+import openWounds from '../utils/openWounds';
+import gameOver from '../utils/gameOver';
 import update from 'immutability-helper';
-import nextNote from '../functions/nextNote';
-import oppaWin from '../functions/oppaWin';
+import nextNote from '../utils/nextNote';
+import oppaWin from '../utils/oppaWin';
 
 export default class App extends Component {
   state = {
@@ -20,8 +20,8 @@ export default class App extends Component {
     win: false
   }
   handleClick = (e) => {
-    const { field, count, avalFlags} = lvlGenerator(e.target.value);
-    this.setState({ difficult: e.target.value, field, count, end: false, avalFlags});
+    const { field, count, avalFlags } = lvlGenerator(e.target.value);
+    this.setState({ difficult: e.target.value, field, count, end: false, avalFlags });
   }
   handleChange = (id) => (e) => {
     if (!this.state.end) {
@@ -35,7 +35,7 @@ export default class App extends Component {
         }
         else {
           const newCollection = openWounds(id, collection);
-          oppaWin(newCollection) ? this.setState({ field: gameOver(newCollection), end: true, win: true }) : this.setState({field: newCollection});
+          oppaWin(newCollection) ? this.setState({ field: gameOver(newCollection), end: true, win: true }) : this.setState({ field: newCollection });
         }
       }
     }
@@ -51,11 +51,15 @@ export default class App extends Component {
       this.setState({ field: newCollection, avalFlags: newCount });
     }
   }
+  dblClick = (id) => (e) => {
+    e.preventDefault();
+    console.log('test ' + id);
+  }
   render() {
     return (
       <Wrapper>
         <Header func={this.handleClick} />
-        {this.state.field.length === 0 ? null : <Field flags={this.state.avalFlags} flagOn={this.flagOn} theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
+        {this.state.field.length === 0 ? null : <Field dblClick={this.dblClick} flags={this.state.avalFlags} flagOn={this.flagOn} theEnd={this.state.end} array={inRow(this.state.field, this.state.count)} handleChange={this.handleChange} />}
       </Wrapper>
     );
   }

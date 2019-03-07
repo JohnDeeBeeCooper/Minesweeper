@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components';
 import Cell from './Cell';
 
-const Field = (props) => {
+export default (props) => {
     return (
         <Wrapper>
             <Container>
@@ -14,7 +14,7 @@ const Field = (props) => {
             <Container>
                 <Table gameOver={props.theEnd}>
                     <Tbody>
-                        {props.array.map(item => <Row>{item.map(a => <Cell flagOn={props.flagOn} func={props.handleChange} key={a.id} param={a} />)}</Row>)}
+                        {props.array.map(item => <Row>{item.map(a => <Cell dblClick={props.dblClick} flagOn={props.flagOn} func={props.handleChange} key={a.id} param={a} />)}</Row>)}
                     </Tbody>
                 </Table>
             </Container>
@@ -72,4 +72,3 @@ const Tbody = styled.tbody`
     display: table-row-group;
     vertical-align: middle;
 `;
-export default Field;

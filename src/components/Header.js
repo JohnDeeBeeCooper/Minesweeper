@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = (props) => {
+export default (props) => {
     const def = props.func;
     return (
         <Container>
@@ -13,7 +13,6 @@ const Header = (props) => {
         </Container>
     )
 }
-export default Header;
 
 const Button = styled.button`
     padding: 5px 10px;

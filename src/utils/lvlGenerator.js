@@ -1,32 +1,32 @@
 import algmnt from './algmnt';
 import bombsCount from './bombsCount';
+import fillArray from './fillArray';
 
 export default (difficult, manual) => {
     let arr = [];
-    let id = 0;
     let count = 0;
     let mines = 0;
     if (!manual) {
         switch (difficult) {
             case 'very easy':
                 count = 7;
-                mines = 6;
+                mines = 5;
                 break;
             case 'easy':
-                count = 12;
-                mines = 12;
+                count = 10;
+                mines = 20;
                 break;
             case 'normal':
-                count = 15;
-                mines = 25;
+                count = 20;
+                mines = 55;
                 break;
             case 'hard':
-                count = 20;
-                mines = 35;
+                count = 25;
+                mines = 99;
                 break;
             case 'impossible':
-                count = 20;
-                mines = 60;
+                count = 30;
+                mines = 777;
                 break;
             default:
                 console.log('aaeaeaeaeaeae');
@@ -36,18 +36,11 @@ export default (difficult, manual) => {
     }
     else {
         arr = [manual.w, manual.h];
-        count = manual.w;
+        mines = manual.mines;
     }
-    const newWidth = [...Array(arr[0]).keys()];
-    const newHeight = [...Array(arr[1]).keys()];
-    const preNewArr = newHeight.reduce((acc, a) => {
-        const newRange = newWidth.map(item => {
-            return { id: id++, h: a, w: item, isBoom: false, isClosed: true, num: 0, note: '' }
-        });
-        return [...acc, ...newRange];
-    }, []);
+    const preNewArr = fillArray(...arr);
     const preArr = algmnt(preNewArr, mines);
     const field = bombsCount(preArr);
-    const avalFlags = field.filter(item => item.isBoom).length;
-    return { field, count, avalFlags};
+    const avalFlags = mines;
+    return { field, count, avalFlags };
 }

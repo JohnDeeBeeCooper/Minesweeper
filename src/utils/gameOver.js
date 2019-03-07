@@ -3,13 +3,13 @@ export default (arr, id) => {
         if (a.isBoom) {
             a.isClosed = false;
         }
-        if (id === undefined) {
+        if (!id) {
             if (a.isBoom) {
                 a.note = 'flag';
             }
         }
         return a;
     });
-    if (id !== undefined) { newArr[id].red = true; }
+    if (id >= 0) { newArr[id].red = true; }
     return newArr;
 }
