@@ -3,7 +3,7 @@ export default (arr, id) => {
         if (a.isBoom) {
             a.isClosed = false;
         }
-        if (!id) {
+        if (!id && id !== 0) {
             if (a.isBoom) {
                 a.note = 'flag';
             }
