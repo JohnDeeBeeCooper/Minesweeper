@@ -9,7 +9,7 @@ const ids = (id, arr, filtId) => {
             }
             return acc;
         }, []);
-        const result = new Set([...res, ...filtId]);
+        const result = Array.from(new Set([...res, ...filtId]));
         return result;
     }
     else {
@@ -19,9 +19,7 @@ const ids = (id, arr, filtId) => {
 }
 const openWounds = (id, arr) => { //ref
     const items = ids(id, arr, []);
-    items.forEach((item, i, newArr) => {
-        arr[item].isClosed = arr[item].note === '' ? false : true;
-    });
-    return arr;
+    const newItems = items.filter(item => arr[item].note === '');
+    return newItems;
 }
 export default openWounds;

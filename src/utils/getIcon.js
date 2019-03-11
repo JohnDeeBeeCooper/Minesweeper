@@ -1,30 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
 import '../assets/icons';
 
 const getIcon = (id) => {
     if (Array.isArray(id)) {
         return (
-            <Svg>
+            <svg width="13" height="13">
                 <use xlinkHref={`#${id[0]}`} />
-                <Svg>
+                <svg width="13" height="13">
                     <use xlinkHref={`#${id[1]}`} />
-                </Svg>
-            </Svg>
+                </svg>
+            </svg>
         );
     }
     return (
-        <Svg>
+        <svg width="13" height="13">
             <use xlinkHref={`#${id}`} />
-        </Svg>
+        </svg>
     );
 }
 
 
 export default getIcon;
-
-const Svg = styled.svg`
-    width: 13px;
-    height: 13px;
-    margin: auto;
-`;

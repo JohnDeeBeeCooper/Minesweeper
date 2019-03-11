@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import Icon from '../assets';
 
-export default (props) => {
-    const { param } = props;
-    const { cellNum, cellNote } = Icon(param);
+//export default (props) => {
+export default class Cell extends Component {
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.param.isClosed !== this.props.param.isClosed) {
+            return true;
+        }
+        if (nextProps.param.note !== this.props.param.note) {
+            return true;
+        }
+        return false;
+    }
+    render() {
+        const props = this.props;
+        const { param } = props;
+        const { cellNum, cellNote } = Icon(param);
+        return (
+            <Sq red={param.red} num={param.num} isOpen={param.isClosed} onDoubleClick={props.dblClick(param.id)} onContextMenu={props.flagOn(param.id)} onClick={props.func(param.id)}>
+                {param.isClosed || param.num === 0 ? cellNote : cellNum}
+            </Sq>
+        )
 
-    return (
-        <Sq red={param.red} num={param.num} isClosed={param.isClosed} onDoubleClick={props.dblClick(param.id)} onContextMenu={props.flagOn(param.id)} onClick={props.func(param.id)}>
-            {param.isClosed || param.num === 0 ? cellNote : cellNum}
-        </Sq>
-    )
+    }
 }
 const Sq = styled.td`
     width: 20px;
@@ -31,19 +44,18 @@ const Sq = styled.td`
     border-right: solid 2px #7b7b7b;
     border-top: solid 2px #fff;
     border-left: solid 2px #fff; 
-    ${props => !props.isClosed && css`
+    ${props => !props.isOpen && css`
         border-left: solid 1px #7b7b7b;
         border-top: solid 1px #7b7b7b;
         border-bottom: none;
         border-right: none;
-        text-align: center;
   `}
     ${props => props.red && css`
     background: red;
   `}
 
     ${props => {
-        if (!props.isClosed) {
+        if (!props.isOpen && props.num > 0) {
             switch (props.num) {
                 case 1:
                     return css`color: blue`;
@@ -62,6 +74,7 @@ const Sq = styled.td`
                 case 8:
                     return css`color: gray`;
                 default:
+                    css`color: gray`
                     break;
             }
         }

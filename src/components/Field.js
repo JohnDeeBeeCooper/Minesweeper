@@ -14,7 +14,7 @@ export default (props) => {
             <Container>
                 <Table gameOver={props.theEnd}>
                     <Tbody>
-                        {props.array.map(item => <Row>{item.map(a => <Cell dblClick={props.dblClick} flagOn={props.flagOn} func={props.handleChange} key={a.id} param={a} />)}</Row>)}
+                        {props.array.map((item, idx) => <Row key={idx}>{item.map(a => <Cell dblClick={props.dblClick} flagOn={props.flagOn} func={props.handleChange} key={a.id} param={a} />)}</Row>)}
                     </Tbody>
                 </Table>
             </Container>

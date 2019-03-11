@@ -31,10 +31,16 @@ export default class App extends Component {
       }
       else {
         if (collection[id].isBoom) {
-          this.setState({ end: true, field: gameOver(collection, id) })
+          this.setState({ end: true, field: gameOver(collection, id) });
         }
         else {
-          const newCollection = openWounds(id, collection);
+          const ids = openWounds(id, collection);
+          const newCollection = collection.map((item, idx) => {
+            if (ids.includes(idx)) {
+              item = update(item, { isClosed: { $set: false } });
+            }
+            return item;
+          });
           oppaWin(newCollection) ? this.setState({ field: gameOver(newCollection), end: true, win: true }) : this.setState({ field: newCollection });
         }
       }
@@ -55,6 +61,7 @@ export default class App extends Component {
     e.preventDefault();
     console.log('test ' + id);
   }
+
   render() {
     return (
       <Wrapper>
