@@ -17,6 +17,7 @@ const Container = styled.div`
     flex-flow: column nowrap;
     gap: 32px 0;
     max-width: 960px;
+    user-select: none;
 `;
 
 export default App;

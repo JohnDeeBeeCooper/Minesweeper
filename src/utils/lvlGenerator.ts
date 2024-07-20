@@ -1,50 +1,54 @@
-import { bombsAlignment } from 'utils';
+import { bombsAlignment, getCellNums } from 'utils';
 import type { Cell, Difficulty, Field } from 'types';
+import type { CommonStore } from 'store/models/common';
 
-type Returned = {
-    field: Field
-    availableFlags: number
-    cellInRow: number
-};
+type Returned = Pick<CommonStore, 'availableFlags' | 'cellInRow' | 'field'>;
 
 const lvlGenerator = (difficulty: Difficulty): Returned => {
-    let cellCount = 0;
+    let cellInRow = 0;
     let mines = 0;
 
     switch (difficulty) {
         case 'very easy':
-            cellCount = 7;
+            cellInRow = 7;
             mines = 5;
             break;
         case 'easy':
-            cellCount = 10;
+            cellInRow = 10;
             mines = 20;
             break;
         case 'normal':
-            cellCount = 20;
+            cellInRow = 20;
             mines = 55;
             break;
         case 'hard':
-            cellCount = 25;
+            cellInRow = 25;
             mines = 99;
             break;
         case 'impossible':
-            cellCount = 30;
+            cellInRow = 30;
             mines = 777;
             break;
         default:
             console.log('aaeaeaeaeaeae');
             break;
     }
-    const cellLen = cellCount * cellCount;
+    const cellLen = cellInRow * cellInRow;
     const bombIDs = bombsAlignment(cellLen - 1, mines);
     const cellIDs: number[] = [...Array(cellLen).keys()];
-    const arrayField: Field = cellIDs.reduce((acc, cellID) => {
-        const cellItem: Cell = { id: cellID, open: false, core: bombIDs.includes(cellID) ? 'bomb' : 0 };
+
+    const field: Field = cellIDs.reduce((acc, cellID) => {
+        const cellItem: Cell = { id: cellID, open: false, core: 0, isBoom: bombIDs.includes(cellID) };
         return { ...acc, [cellID]: cellItem };
     }, {});
 
-    return { field: arrayField, availableFlags: mines, cellInRow: cellCount };
+    bombIDs.forEach((id) => {
+        const incrementCellIDs = getCellNums(id, cellInRow, bombIDs);
+        incrementCellIDs.forEach((cellID) => {
+            field[cellID].core += 1;
+        });
+    });
+    return { field, availableFlags: mines, cellInRow };
 }
 
 export default lvlGenerator;

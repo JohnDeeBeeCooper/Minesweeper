@@ -1,9 +1,9 @@
 import { createModel } from '@rematch/core';
 import type { RootModel } from './';
 import type { Field, Difficulty } from 'types';
-import { lvlGenerator } from 'utils';
+import { openCell, lvlGenerator } from 'utils';
 
-type CommonStore = {
+export type CommonStore = {
     difficulty?: Difficulty
     field: Field
     availableFlags: number
@@ -31,6 +31,21 @@ export const common = createModel<RootModel>()({
             dispatch.common.setField(field);
             dispatch.common.setAvailableFlags(availableFlags);
             dispatch.common.setCellInRow(cellInRow);
+        },
+        open(payload: number, rootState) {
+            const field = structuredClone(rootState.common.field);
+            field[payload].open = true;
+            if (field[payload].isBoom) {
+                dispatch.common.gameOver();
+            }
+            else {
+                const cellInRow = rootState.common.cellInRow;
+                openCell(field, payload, cellInRow, [payload]);
+            }
+            dispatch.common.setField(field);
+        },
+        gameOver() {
+            console.log('GG');
         },
         reset() {
 

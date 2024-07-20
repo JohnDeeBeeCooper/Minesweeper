@@ -3,18 +3,18 @@ import { appSelector } from 'store';
 import { Cell } from 'components';
 import { StyledContainer, StyledWrapper } from './styled';
 
+const shallowEqual = (prevField: string[], nextField: string[]) => {
+    return prevField.length === nextField.length;
+};
+
 const Field: React.FC = () => {
-    const field = appSelector((state) => state.common.field);
+    const field = appSelector((state) => Object.keys(state.common.field), shallowEqual);
     const cellInRow = appSelector((state) => state.common.cellInRow);
-
-    const onOpen = () => {
-
-    };
 
     return (
         <StyledWrapper>
-            <StyledContainer cellInRow={cellInRow}>
-                {Object.values(field).map((cell) => <Cell onOpen={onOpen} {...cell} />)}
+            <StyledContainer $cellInRow={cellInRow}>
+                {Object.keys(field).map((cellID) => <Cell key={cellID} cellID={Number(cellID)} />)}
             </StyledContainer>
         </StyledWrapper>
 

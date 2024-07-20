@@ -5,7 +5,7 @@ export const StyledWrapper = styled.div`
 `;
 
 type ContainerProps = {
-    cellInRow: number
+    $cellInRow: number
 };
 
 export const StyledContainer = styled.div<ContainerProps>`
@@ -16,7 +16,7 @@ export const StyledContainer = styled.div<ContainerProps>`
     border-top: solid 2px #fff;
     border-left: solid 2px #fff;
     display: grid;
-    grid-template-columns: ${props => `repeat(${props.cellInRow}, 0.01fr)`};
+    grid-template-columns: ${props => `repeat(${props.$cellInRow}, 0.01fr)`};
     grid-auto-rows: 20px;
     grid-column-gap: 0;
 `;
