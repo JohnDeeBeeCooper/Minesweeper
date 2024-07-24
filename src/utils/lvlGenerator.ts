@@ -1,8 +1,9 @@
 import { bombsAlignment, getCellNums } from 'utils';
 import type { Cell, Difficulty, Field } from 'types';
-import type { CommonStore } from 'store/models/common';
+import type { FieldStore } from 'store/models/field';
+import { PEPE_BOMBS } from 'constants/index';
 
-type Returned = Pick<CommonStore, 'availableFlags' | 'cellInRow' | 'field'>;
+type Returned = Pick<FieldStore, 'availableFlags' | 'cellInRow' | 'field' | 'bombsCount'>;
 
 const lvlGenerator = (difficulty: Difficulty): Returned => {
     let cellInRow = 0;
@@ -29,18 +30,22 @@ const lvlGenerator = (difficulty: Difficulty): Returned => {
             cellInRow = 30;
             mines = 777;
             break;
+        case 'pepe':
+            cellInRow = 60;
+            mines = 564;
+            break;
         default:
             console.log('aaeaeaeaeaeae');
             break;
     }
     const cellLen = cellInRow * cellInRow;
-    const bombIDs = bombsAlignment(cellLen - 1, mines);
+    const bombIDs = difficulty === 'pepe' ? PEPE_BOMBS : bombsAlignment(cellLen - 1, mines);
     const cellIDs: number[] = [...Array(cellLen).keys()];
 
-    const field: Field = cellIDs.reduce((acc, cellID) => {
+    const field = cellIDs.reduce((acc, cellID) => {
         const cellItem: Cell = { id: cellID, open: false, core: 0, isBoom: bombIDs.includes(cellID) };
-        return { ...acc, [cellID]: cellItem };
-    }, {});
+        return [...acc, cellItem];
+    }, [] as Field);
 
     bombIDs.forEach((id) => {
         const incrementCellIDs = getCellNums(id, cellInRow, bombIDs);
@@ -48,7 +53,7 @@ const lvlGenerator = (difficulty: Difficulty): Returned => {
             field[cellID].core += 1;
         });
     });
-    return { field, availableFlags: mines, cellInRow };
+    return { availableFlags: mines, bombsCount: mines, cellInRow, field };
 }
 
 export default lvlGenerator;

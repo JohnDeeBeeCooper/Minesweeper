@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, Field } from 'components';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 const App: React.FC = () => {
     return (
@@ -16,7 +16,6 @@ const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     gap: 32px 0;
-    max-width: 960px;
     user-select: none;
 `;
 

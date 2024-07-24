@@ -3,16 +3,23 @@ import styled, { css } from 'styled-components';
 type StyledCellProps = {
     $open: boolean
     $num: number
+    $isExploded?: boolean
 };
 
+export const StyledCore = styled.div<StyledCellProps>`
+    display: ${(props) => props.$open ? 'flex' : 'none'}
+`;
 export const StyledCell = styled.div<StyledCellProps>`
+    display: flex;
+    justify-content: center;
+    align-items:center;
     width: 20px;
     height: 20px;
     margin: 0;
     padding: 0;
     font-weight: 400;
     font-family: 'Arial Black', Arial, sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     text-align: center;
     line-height: 20px;
     vertical-align: middle;
@@ -20,10 +27,13 @@ export const StyledCell = styled.div<StyledCellProps>`
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-color: #bdbdbd;
-    border-bottom: solid 2px #7b7b7b;
+    border: solid 2px #7b7b7b;
     border-right: solid 2px #7b7b7b;
     border-top: solid 2px #fff;
     border-left: solid 2px #fff;
+    ${props => props.$isExploded && css`
+        background-color: red;    
+    `}
     ${props => props.$open && css`
         border-left: solid 1px #7b7b7b;
         border-top: solid 1px #7b7b7b;

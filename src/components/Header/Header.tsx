@@ -1,21 +1,24 @@
 import React from 'react';
 import { appDispatch } from 'store';
 import { StyledHeader, StyledButton } from './styled';
+import { DIFFICULTY } from 'constants/index';
+import { Difficulty } from 'types';
 
 const Header: React.FC = () => {
     const dispatch = appDispatch();
 
-    const changeDifficulty = (e: React.FormEvent<HTMLButtonElement>) => {
-        dispatch.common.init(e.currentTarget.value);
+    const changeDifficulty = (difficult: Difficulty) => {
+        dispatch.field.init(difficult);
+    };
+
+    const openAll = () => {
+        dispatch.field.openAll();
     };
 
     return (
         <StyledHeader>
-            <StyledButton value='very easy' onClick={changeDifficulty}>ez</StyledButton>
-            <StyledButton value='easy' onClick={changeDifficulty}>easy</StyledButton>
-            <StyledButton value='normal' onClick={changeDifficulty}>normal</StyledButton>
-            <StyledButton value='hard' onClick={changeDifficulty}>hard</StyledButton>
-            <StyledButton value='impossible' onClick={changeDifficulty}>impossible</StyledButton>
+            {DIFFICULTY.map((difficult) => <StyledButton onClick={() => changeDifficulty(difficult)}>{difficult}</StyledButton>)}
+            <StyledButton onClick={openAll}>OPEN</StyledButton>
         </StyledHeader>
     )
 };

@@ -1,3 +1,5 @@
+import { DIFFICULTY } from 'constants/index';
+
 export type Cell = {
     id: number
     open: boolean
@@ -6,5 +8,5 @@ export type Cell = {
     isBoom: boolean
 };
 
-export type Field = Record<string, Cell>;
-export type Difficulty = 'very easy' | 'easy' | 'normal' | 'hard' | 'impossible'
+export type Field = Cell[];
+export type Difficulty = typeof DIFFICULTY[number];
